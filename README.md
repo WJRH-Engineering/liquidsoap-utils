@@ -159,3 +159,11 @@ Above is a sample from the WJRH Remote Studio scheduler, which uses timestring.l
 Under the hood, timestring.liq works by using regular expressions to parse the time ranges into tuples of integers, where each integer is the number of seconds since the beginning of the week. It then constructs a function that compares the integer value of the current second to that of those in the tuple, and returns true if it lies between them.
 
 ## Latch.liq
+
+Latch.liq provides a simple implementation of an RS Latch in
+Liquidsoap. It serves a similar purpose to the built in functions 
+predicate.activates, predicate.changes, and predicate.once.
+https://www.liquidsoap.info/doc-dev/reference-extras.html#predicate.activates
+Currently, these functions are unstable, and only exist in the development
+versions of Liquidsoap, so this serves as an alternative until those
+features can be officially included.
