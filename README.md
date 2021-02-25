@@ -6,7 +6,7 @@ future engineers of the station.
 
 ---
 
-## CONFIG.LIQ
+## Config.liq
 
 Config.liq provides a key value store that can be used for getting and setting
 config parameters within a liquidsoap script. It is necessary because Liquidsoap
@@ -63,8 +63,9 @@ think it should be necessary to understand these things in order to implement
 something like a mutable config dictionary.
 
 Config.liq simplifies the above expressions by replacing them with
-`config_set(key, value)` and `config_get(key)`. Shown below is an example of
-using the library to configure a script for icecast streaming
+`config_set(key, value)` and `config_get(key)`.
+
+### Example
 
 ```python
 %include "config.liq"
@@ -92,11 +93,16 @@ domain socket server, if one exists, by calling the
 configuration on the fly.
 
 
-## TIMESTRING.LIQ
+## Timestring.liq
 
 Liquidsoap includes an excellent syntax for declaring time intervals, documented here:
 [https://www.liquidsoap.info/doc-dev/language.html#time-intervals](https://www.liquidsoap.info/doc-dev/language.html#time-intervals).
+Timestring.liq allows strings matching this format to be used in a similar way. It exposes a function called `timerange_to_function()` Which takes a time expression encoded as a string, and returns a function that returns true when called within the time range specified, and false otherwise.
 
-TODO
+This grants the user a lot more flexibility with how time expressions can be used. They can now, for example, be generated dynamically by a function call, or updated by an external script over the telnet interface. The WJRH Remote Studio, for example, uses timestring.liq to parse schedule information fed to it over telnet by its init script, as seen below.
 
-## LATCH.LIQ
+### Example
+
+
+
+## Latch.liq
