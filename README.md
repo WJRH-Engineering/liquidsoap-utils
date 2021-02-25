@@ -103,6 +103,40 @@ This grants the user a lot more flexibility with how time expressions can be use
 
 ### Example
 
+```python
+timeslots = ref([])
+
+def add_timeslot(mount, timestring)
+	print("new timeslot: #{mount} @ #{timestring}")
+	timeslots := list.append([(mount, timestring)], !timeslots);
+end
+
+def make_source(timeslot)
+	url = "http://#{config_get('input.server')}:#{config_get('input.port')}/#{fst(timeslot)}"
+	source = input.http(id=fst(timeslot), url)
+	predicate = timerange_to_function(snd(timeslot))
+	(predicate, source)
+end
+
+def start()
+	output = switch(track_sensitive = false, list.map(make_source, !timeslots))
+	stream_to("remote-studio", output)
+	"OK"
+end
+
+server.register("add", 
+	namespace="timeslot",
+	usage="add <mount> <timestring>",
+	fun(argstring) -> begin
+		args = string.split(separator=" ", argstring)
+		mount = list.nth(default="", args, 0)
+		timestring = list.nth(default="", args, 1)
+		add_timeslot(mount, timestring)
+		"OK"
+	end
+)
+
+```
 
 
 ## Latch.liq
