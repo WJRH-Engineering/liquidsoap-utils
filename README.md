@@ -99,9 +99,25 @@ Liquidsoap includes an excellent syntax for declaring time intervals, documented
 [https://www.liquidsoap.info/doc-dev/language.html#time-intervals](https://www.liquidsoap.info/doc-dev/language.html#time-intervals).
 Timestring.liq allows strings matching this format to be used in a similar way. It exposes a function called `timerange_to_function()` Which takes a time expression encoded as a string, and returns a function that returns true when called within the time range specified, and false otherwise.
 
-This grants the user a lot more flexibility with how time expressions can be used. They can now, for example, be generated dynamically by a function call, or updated by an external script over the telnet interface. The WJRH Remote Studio, for example, uses timestring.liq to parse schedule information fed to it over telnet by its init script, as seen below.
+This grants the user a lot more flexibility with how time expressions can be used. They can now, for example, be generated dynamically by a function call, or updated by an external script over the telnet interface.
+
 
 ### Example
+
+```python
+timeslot1 = "3w12h-3w13h"
+timeslot2 = "3w13h-3w14h"
+
+output = switch([
+	(timerange_to_function(timeslot1), sine(440.0)),
+	(timerange_to_function(timeslot2), square(440.0)),
+
+])
+```
+
+In the example above, we make a very simple source that plays a 440Hz sine wave on wednesdays between noon and 1:00pm, and a square wave between 1:00pm and 2:00pm
+
+### Example: Remote Studio
 
 ```python
 timeslots = ref([])
@@ -138,5 +154,8 @@ server.register("add",
 
 ```
 
+Above is a sample from the WJRH Remote Studio scheduler, which uses timestring.liq to receive schedule information over the telnet interface.
+
+Under the hood, timestring.liq works by using regular expressions to parse the time ranges into tuples of integers, where each integer is the number of seconds since the beginning of the week. It then constructs a function that compares the integer value of the current second to that of those in the tuple, and returns true if it lies between them.
 
 ## Latch.liq
