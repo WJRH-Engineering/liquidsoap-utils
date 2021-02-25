@@ -1,6 +1,7 @@
-#timestring
-
-# convert a given timestring into an integer representing the number
+# --------------
+# TIMESTRING.LIQ
+# --------------
+# Convert a given timestring into an integer representing the number
 # seconds since the beginning of the week. This integer is referred to
 # as the timestring hash, and can be used to easily compare the timestring
 # to others as well as to the current time
@@ -8,6 +9,7 @@
 # timestrings take the form _w_h_m_s
 # where w,h,m,s are weekday, hour, minute, and second respectively.
 # ex. 2w10h0m0s - tuesdays at 10am
+
 def hash_timestring(timestring) = 
 	# the number of seconds represented by each digit in the timestring
 	values = [60*60*24, 60*60, 60, 1]
