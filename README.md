@@ -19,7 +19,7 @@ element represents the value. This is referred to by Liquidsoap as an
 ```python
 dictionary_like_list = [
   ("key1", "value1"),
-  ("key2, "value2")
+  ("key2", "value2")
 ]
 ```
 
