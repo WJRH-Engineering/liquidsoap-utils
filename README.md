@@ -88,8 +88,8 @@ output.icecast(%mp3,
 
 Config.liq also gives you the option to bind it to the liquidsoap telnet or unix
 domain socket server, if one exists, by calling the
-`register_config_functions()` function. This exposes `config.get` and
-`config.set` as server commands, which can be used to update the scripts
+`register_config_functions()` function. This exposes `config.get <key>` and
+`config.set <key> <value>` as server commands, which can be used to update the scripts
 configuration on the fly.
 
 
