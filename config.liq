@@ -10,7 +10,7 @@ config = ref([])
 def config_set(key, value)
 	# remove the value if it already exists
 	if list.mem_assoc(key, !config) then
-		config := list.remove_assoc(key, !config)
+		config := list.assoc.remove(key, !config)
 	end
 	# add the new value
 	config := list.add((key, value), !config)
